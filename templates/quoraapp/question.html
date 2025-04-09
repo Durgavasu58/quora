@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mx-auto" style="width: 350px;">Ask a Question</h2>
+
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Question Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description / Details</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        </div>
+
+<!--        <div class="mb-3">-->
+<!--            <label for="status" class="form-label">Status</label>-->
+<!--            <select class="form-control" id="status" name="status" required>-->
+<!--                <option value="draft">Draft</option>-->
+<!--                <option value="published">Published</option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+        <button type="submit" class="btn btn-success">Post Question</button>
+    </form>
+</div>
+
+{% endblock %}
