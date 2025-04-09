@@ -4,8 +4,9 @@
 <div  class="container" style="margin-top:35px;">
 
     {% if questions %}
+    <h2 class="mx-auto" style="width: 350px;">Asked  Questions</h2>
     {% for q in questions %}
-        <h2 class="mx-auto" style="width: 350px;">Asked  Questions</h2>
+
         <div class="col-sm-12">
             <a style="color: black;" href="{% url 'quoraapp:question_detail_view' q.id %}">
 
