@@ -95,14 +95,21 @@ def question_detail(request, id):
     """
 
     indivigual_question = get_object_or_404(Question,id=id)
-
-
-    if indivigual_question.likes.filter(id=request.user.id).exists():
-        question_like = True
-    else:
-        question_like = False
-
     user_comments = Comments.objects.filter(question_id=id).order_by("-id")
+
+    # Annotate a custom flag on each comment object
+    if request.user.is_authenticated:
+        # Get IDs of comments liked by current user
+        liked_comment_ids = set(
+            request.user.comment_likes.values_list("id", flat=True)
+        )
+
+        # Add `is_liked_by_user` to each comment
+        for comment in user_comments:
+            comment.is_liked_by_user = comment.id in liked_comment_ids
+    else:
+        for comment in user_comments:
+            comment.is_liked_by_user = False
 
     if request.method == "POST":
         if not request.user.is_authenticated:
@@ -125,12 +132,13 @@ def question_detail(request, id):
 def question_like(request):
     if not request.user.is_authenticated:
         return  redirect("quoraapp:login_view")
-    like_ques = get_object_or_404(Question, id=request.POST.get("indivigual_question_id"))
-    print("like_ques",like_ques,request.POST.get("indivigual_question_id"))
 
-    if like_ques.likes.filter(email=request.user.email).exists():
-        like_ques.likes.remove(request.user)
+    like_answer = get_object_or_404(Comments, id=request.POST.get("commnet_id"))
+    print("like_answer",like_answer,like_answer.question.id)
+    if like_answer.comment_likes.filter(id=request.user.id).exists():
+        like_answer.comment_likes.remove(request.user)
     else:
-        like_ques.likes.add(request.user)
+        like_answer.comment_likes.add(request.user)
+        print("added like for answer")
 
-    return redirect("quoraapp:question_detail_view" ,id=request.POST.get("indivigual_question_id"))
+    return redirect("quoraapp:question_detail_view" ,id=like_answer.question.id)

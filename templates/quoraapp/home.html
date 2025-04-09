@@ -10,11 +10,11 @@
 
             <div class="card" >
                 <div class="card-body">
-                    <h2><p><a style="color: black;" href="{% url 'quoraapp:question_detail_view' q.id %}">{{q.title}}</a></p></h2>
+                    <h2><p><a style="color: blue;" href="{% url 'quoraapp:question_detail_view' q.id %}">{{q.title}}</a></p></h2>
                     <p><strong>Author: </strong>{{q.author_name}}
                         <span class="float-right">
                             <span class="badge badge-secondary py-2">Created: {{q.created_at}}</span>
-                            <span class="badge badge-secondary py-2">Updated: {{q.updated_at}}</span>
+<!--                            <span class="badge badge-secondary py-2">Updated: {{q.updated_at}}</span>-->
                         </span>
                     </p>
                     <p><strong>Description:-</strong></p><h6>{{q.description}}</h6>

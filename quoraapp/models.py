@@ -32,6 +32,7 @@ class Comments(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="question_comment")
     description = models.TextField()
     created_at =  models.DateTimeField(auto_now_add=True)
+    comment_likes = models.ManyToManyField(User, blank=True, related_name="comment_likes")
 
     def __str__(self):
         return f"{self.question.title},{self.user.username}"
