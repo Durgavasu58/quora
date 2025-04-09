@@ -12,3 +12,8 @@ Installation steps:
 4. --> python manage.py makemigrations && python manage.py migrate
 5. create a superuser for admin interface
   --> python manage.py createsuperuser
+
+Note:- 
+1.Users can view questions and answers posted by other users.
+2.Authentication is required for users to like on answers and to answer on question as well.
+
