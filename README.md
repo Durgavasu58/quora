@@ -18,8 +18,6 @@ Installation steps:
 
 
 1. **Users can view questions and answers posted by other users.**
-2. 
-
 3. **Authentication is required for users to like answers and to answer questions.**
 
 
