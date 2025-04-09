@@ -8,6 +8,9 @@ from .models import *
 from django.db.models import Q
 
 def home(request):
+    """
+        Display the all questions, ordered by latest.
+    """
     questions = Question.objects.all().order_by('-id')
     context = {
         "questions":questions
@@ -19,6 +22,10 @@ def index(request):
     return render(request,"base.html")
 
 def user_register(request):
+    """
+        Handling the user registration. validating and saving user, then redirecting to the login Page.
+    """
+
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
 
@@ -31,6 +38,11 @@ def user_register(request):
     return  render(request, "quoraapp/register.html")
 
 def userlogin(request):
+    """
+        Handling the  user login using either username or email.
+        - If already authenticated, redirecting to home.
+        - On POST: authenticating and login the user.
+    """
     if request.user.is_authenticated:
         return  redirect("quoraapp:home_view")
 
@@ -61,7 +73,9 @@ def user_logout(request):
 
 @login_required()
 def ask_question(request):
-
+    """
+        Allow an authenticated user to post a new question.
+    """
     if request.method == "POST":
         form = QuestionForm(request.POST)
         if form.is_valid():
@@ -72,9 +86,15 @@ def ask_question(request):
     return  render(request, "quoraapp/question.html")
 
 def question_detail(request, id):
+    """
+        Display details of a question :
+        - Full question content
+        - Likes
+        - Comments
+        Also handling POST to add a comment if the user is authenticated only.
+    """
 
     indivigual_question = get_object_or_404(Question,id=id)
-    print(indivigual_question)
 
 
     if indivigual_question.likes.filter(id=request.user.id).exists():

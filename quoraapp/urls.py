@@ -4,7 +4,6 @@ from . import  views
 app_name = "quoraapp"
 
 urlpatterns = [
-    # path('',views.index, name="testview"),
     path('',views.home,name="home_view"),
     path('login/',views.userlogin, name="login_view"),
     path('register/',views.user_register, name="register_view"),
