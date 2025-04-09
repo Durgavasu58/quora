@@ -15,5 +15,6 @@ Installation steps:
 
 Note:- 
 1.Users can view questions and answers posted by other users.
+
 2.Authentication is required for users to like on answers and to answer on question as well.
 
